@@ -1,0 +1,153 @@
+{% extends 'layouts/base.html' %} {% block content %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ToDo Список</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 40px;
+        background: #f0f2f5;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2em;
+        margin-bottom: 30px;
+        color: #222;
+      }
+
+      form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        justify-content: center;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        width: 300px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        transition: border 0.2s;
+      }
+
+      input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      .task {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: transform 0.1s;
+      }
+
+      .task:hover {
+        transform: translateY(-2px);
+      }
+
+      .completed {
+        text-decoration: line-through;
+        opacity: 0.6;
+      }
+
+      .task a {
+        margin-left: 10px;
+        color: #007bff;
+        text-decoration: none;
+        font-size: 0.9em;
+      }
+
+      .task a:hover {
+        text-decoration: underline;
+      }
+
+      .filters {
+        margin-bottom: 25px;
+        text-align: center;
+      }
+
+      .filters a {
+        margin: 0 10px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+      }
+
+      .filters a:hover {
+        text-decoration: underline;
+      }
+
+      p {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+      }
+
+      .asdasdasdasd{
+        min-height: 100vh;
+        margin-top: 100px;
+      }
+
+      .container1212{
+        max-width: 800px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="asdasdasdasd">
+      <div class="container1212">
+        <h1>ToDo Список</h1>
+
+        <div class="filters">
+          <a href="?">Все</a>
+          <a href="?status=todo">Не выполнено</a>
+          <a href="?status=done">Выполнено</a>
+        </div>
+
+        <form method="post">
+          {% csrf_token %} {{ form.title }}
+          <button type="submit">Добавить</button>
+        </form>
+
+        {% for task in tasks %}
+        <div class="task {% if task.completed %}completed{% endif %}">
+          {{ task.title }}
+          <div>
+            <a href="{% url 'task_edit' task.pk %}">Ред.</a>
+            <a href="{% url 'task_delete' task.pk %}">Удал.</a>
+          </div>
+        </div>
+        {% empty %}
+        <p>Задач нет</p>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock content %}

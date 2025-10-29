@@ -18,10 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from blog.views import posts
 from library.views import book_list
+from todoList.views import task_list,task_delete,task_edit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",posts,name="posts"),
-    path("library/",book_list,name="library")
+    path("library/",book_list,name="library"),
+    path("todoList/",task_list,name="todoList"),
+    path('todoList/edit/<int:pk>/', task_edit, name='task_edit'),
+    path('todoList/delete/<int:pk>/', task_delete, name='task_delete'),
     
 ]
