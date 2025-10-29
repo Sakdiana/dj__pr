@@ -21,6 +21,7 @@ def posts(request):
             form.save()
             return redirect('posts')
     
+    
     if request.method == 'POST' and 'delete' in request.POST:
         post = get_object_or_404(Post, id=request.POST.get('post_id'))
         post.delete()

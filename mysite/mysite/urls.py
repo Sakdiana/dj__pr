@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from blog.views import posts
+from library.views import book_list
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("blog/",posts,name="posts")
+    path("",posts,name="posts"),
+    path("library/",book_list,name="library")
+    
 ]
